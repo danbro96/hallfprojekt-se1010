@@ -1,6 +1,7 @@
 %{
 Hållfasthetslära SE1010 Projektuppgift
 Variabellista till uppgift 1a-d
+https://github.com/danbro96/hallfprojekt-se1010
 
 2019-12-06
 Grupp 15
