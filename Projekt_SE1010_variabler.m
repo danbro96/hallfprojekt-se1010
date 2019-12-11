@@ -3,7 +3,7 @@ Hållfasthetslära SE1010 Projektuppgift
 Variabellista till uppgift 1a-d
 https://github.com/danbro96/hallfprojekt-se1010
 
-2019-12-06
+2019-12-11
 Grupp 15
 
     VARIABELINDEXERING

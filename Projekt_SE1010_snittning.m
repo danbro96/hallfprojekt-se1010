@@ -3,7 +3,7 @@ Hållfasthetslära SE1010 Projektuppgift
 Snittning
 https://github.com/danbro96/hallfprojekt-se1010
 
-2019-12-06
+2019-12-11
 Grupp 15
 
     VARIABELINDEXERING
@@ -44,26 +44,26 @@ M4 = @(x) M3(x) + Vly * (x-(L-b1));     %Moment XZ-planet
 %------------------------------------------------------
 %0 <= x < b1
 T5 = @() -Fd/2;                         %Tvärspänning Y-axeln
-M5 = @(x) -Fd/2 * x;                    %Moment XY-planet
+M5 = @(x) Fd/2 * x;                    %Moment XY-planet
 
 %b1 <= x < L/2+bd
 T6 = @() Fli + T5();                    %Tvärspänning Y-axeln
-M6 = @(x) M5(x) + Fli * (x-b1);         %Moment XY-planet
+M6 = @(x) M5(x) - Fli * (x-b1);         %Moment XY-planet
 
 %L/2-bd <= x < L-b1
 T7 = @() -Fk + T6();                    %Tvärspänning Y-axeln
-M7 = @(x) M6(x) - Fk * (x-(L/2+bd));    %Moment XY-planet
+M7 = @(x) M6(x) + Fk * (x-(L/2+bd));    %Moment XY-planet
 
 %L-b1 <= x < L
 T8 = @() Fly + T7();                    %Tvärspänning Y-axeln
-M8 = @(x) M7(x) + Fly * (x-(L-b1));     %Moment XY-planet
+M8 = @(x) M7(x) - Fly * (x-(L-b1));     %Moment XY-planet
 
 %------------------------------------------------------
 %0 <= x < L/2-bb
 M9 = @() -Fd/2*rh;                      %Moment YZ-planet
 
 %L/2-bb <= x < L/2+bd
-M10 = @() Fb*rb + M9();                 %Moment YZ-planet
+M10 = @() -Fb*rb + M9();                %Moment YZ-planet
 
 %L/2+bd <= x < L
 M11 = @() Fk*rd + M10();                %Moment YZ-planet

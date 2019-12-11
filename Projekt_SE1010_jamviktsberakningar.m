@@ -1,9 +1,9 @@
 %{
 Hållfasthetslära SE1010 Projektuppgift
-Del 1, jämviktsberäkningar
+Jämviktsberäkningar
 https://github.com/danbro96/hallfprojekt-se1010
 
-2019-12-06
+2019-12-11
 Grupp 15
 
     VARIABELINDEXERING
@@ -92,10 +92,6 @@ Hby = Hf*df/db/(Vbi/Vby+1);
 Hbi = Hf*df/db/(Vby/Vbi+1); 
 Fd  = Fl + m*a;
 
-
-
-
-
 %%  ---------------------------------------------
    %Friläggning av bakaxeln
    %---------------------------------------------
@@ -147,8 +143,6 @@ Hli = Hbi + Hby;
 -1          *Vli +      -1          *Vly +      0               *Fli +      0           *Fly = - Vbi - Vby - Fb
 -(L/2-b1)   *Vli +      (L/2-b1)    *Vly +      0               *Fli +      0           *Fly = -Vbi * L/2 + Vby * L/2 - (Hbi+Hby) * rh - Fb * bb
 0           *Vli +      0           *Vly +      (L/2-b1)        *Fli +      -(L/2-b1)	*Fly = - Fk * bd
-
-
 
 %Sökes: Vli, Vly, Fli, Fly
 

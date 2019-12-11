@@ -1,11 +1,9 @@
-clear all, close all, clc
-
 %{
 Hållfasthetslära SE1010 Projektuppgift
-Del 1
+
 https://github.com/danbro96/hallfprojekt-se1010
 
-2019-12-06
+2019-12-11
 Grupp 15
 
     VARIABELINDEXERING
@@ -24,6 +22,7 @@ Grupp 15
     y = framåt
     z = uppåt
 %}
+clear all, close all, clc
 
 %Givna variabler
     Projekt_SE1010_variabler
@@ -50,7 +49,7 @@ clc
     R0  = inf;              %m          Radie kurva
 
 Projekt_SE1010_jamviktsberakningar
-Projekt_SE1010_snittning
+%Projekt_SE1010_snittning
 
 %% 1c   -   Bromsning från maxfart med konstant retardation, a2
 clc
@@ -62,7 +61,7 @@ clc
     R0  = inf;              %m          Radie kurva
 
 Projekt_SE1010_jamviktsberakningar
-Projekt_SE1010_snittning
+%Projekt_SE1010_snittning
 
 %% 1d   -   Körning med konstant fart, 0.5*v, i kurva med radie R
 clc
