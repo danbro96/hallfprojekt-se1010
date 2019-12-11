@@ -22,7 +22,7 @@ Grupp 15
     y = framåt
     z = uppåt
 %}
-SP = [b1 L/2-bb L/2+bd L-b1 L];         %Snittpunkter
+%SP = [b1 L/2-bb L/2+bd L-b1 L];         %Snittpunkter
 
 %------------------------------------------------------
 %0 <= x < b1
@@ -87,10 +87,45 @@ T10 = @() -Hli + T9();                  %Normalkraft i X-axeln
     clear z
     z(x) = piecewise(0 < x <= b1, d/2, b1 < x < L-b1, D/2, L-b1 <= x < L, d/2);
 
-    
+    %%
     %-----Beräkning av axeldiameter D & d-------
-    %D = * ns;
     
+    %D = * ns;
+    Smax = SMmax / ns;
+    Mxmax = double(max(Mx(0:0.01:L)));
+    Mymax = double(max(My(0:0.01:L)));
+    Mzmax = double(max(Mz(0:0.01:L)));
+    Nmax = double(max(N(0:0.01:L)));
+
+    syms zt
+
+qn1 = SMmax *zt^2*pi/ ns == Nmax  + sqrt(Mymax^2 + Mzmax^2) * 4 / zt;
+
+s = solve([qn1], [zt]);
+%d = getfield(s,'zt');
+
+%d = vpa(d)
+    %%
+    biggest = 0;
+    where = 0;
+    for i = 0:0.01:L
+        if abs(Smax(i)) > biggest
+            biggest = Smax(i);
+            where = i
+        end
+    end
+%%
+
+    
+    %Tmax = Mxmax / (pi*zt^3/2);                               %Max skjuvspänning        
+    %VM = sqrt(Smax^2 + 3*Tmax^2);
+    
+    %Mtot = sqrt(Mymax^2 + Mzmax^2);                        %Sammansatt böjmoment
+    %Smax = Nmax / (zt^2*pi) + Mtot / (pi*zt^4/4/abs(zt));        %Maxspänningen i axeln
+
+    %Smax = Nmax / (zt^2*pi) + sqrt(Mymax^2 + Mzmax^2) * (4*abs(zt)/ (pi*zt^4)
+    %pi*Smax*zt^3 = Nmax*zt + 4*sqrt(Mymax^2 + Mzmax^2)
+
     %------------VON MISES------------
 
     %Wb = pi*z^3/32;                 %Se FS 6.9      %Böjmotstånd
@@ -115,57 +150,57 @@ qn2 = Wv - (pi*d^3)/16 == 0;
 qn3 = Sigma_max - M_tot/Wb == 0;
 qn4 = t_max - Mv/Wv == 0;
 qn5 = Sigma_eff - sqrt(abs((Sigma_max)^2+3*(t_max)^2)) == 0;
-%}
+    %}
     %Snitt(8,i) = (sigmay^2 + sigmaz^2 + Smax^2 + sigmay*sigmaz + sigmay*sigmax + sigmaz*sigmax + 3*Tmax^2 + 3*tauy^2 + 3*tauz^2)^0.5;
 
 %% PLOTTAR
 close all
 
-figure
+figure('Name',['Moment XZ-planet runt Y - Lastfall ' lastfall]);
 fplot(My,[0 L]);
 %legend("Moment XZ-planet runt Y")
 xlabel('Position längs X-axeln [m]')
-ylabel('Moment [Nm] / Kraft [N]')
+ylabel('Moment [Nm]')
 title(['Moment XZ-planet runt Y - Lastfall ' lastfall])
 grid on
 
-figure
+figure('Name',['Moment XY-planet runt Z - Lastfall ' lastfall]);
 fplot(Mz,[0 L]);
 %legend("Moment XY-planet runt Z")
 xlabel('Position längs X-axeln [m]')
-ylabel('Moment [Nm] / Kraft [N]')
+ylabel('Moment [Nm]')
 title(['Moment XY-planet runt Z - Lastfall ' lastfall])
 grid on
 
-figure
+figure('Name',['Moment YZ-planet runt X - Lastfall ' lastfall]);
 fplot(Mx,[0 L]);
 %legend("Moment YZ-planet runt X")
 xlabel('Position längs X-axeln [m]')
-ylabel('Moment [Nm] / Kraft [N]')
+ylabel('Moment [Nm]')
 title(['Moment YZ-planet runt X - Lastfall ' lastfall])
 grid on
 
-figure
+figure('Name',['Tvärspänning Z-axeln - Lastfall ' lastfall]);
 fplot(Tz,[0 L]);
 %legend("Tvärspänning Z-axeln")
 xlabel('Position längs X-axeln [m]')
-ylabel('Moment [Nm] / Kraft [N]')
+ylabel('Tryck [Pa]')
 title(['Tvärspänning Z-axeln - Lastfall ' lastfall])
 grid on
 
-figure
+figure('Name',['Tvärspänning Y-axeln - Lastfall ' lastfall]);
 fplot(Ty,[0 L]);
 %legend("Tvärspänning Y-axeln")
 xlabel('Position längs X-axeln [m]')
-ylabel('Moment [Nm] / Kraft [N]')
+ylabel('Tryck [Pa]')
 title(['Tvärspänning Y-axeln - Lastfall ' lastfall])
 grid on
 
-figure
+figure('Name',['Normalkraft mot YZ-planet - Lastfall ' lastfall]);
 fplot(N,[0 L]);
 %legend("Normalkraft mot YZ-planet")
 xlabel('Position längs X-axeln [m]')
-ylabel('Moment [Nm] / Kraft [N]')
+ylabel('Kraft [N]')
 title(['Normalkraft mot YZ-planet - Lastfall ' lastfall])
 grid on
 
@@ -173,7 +208,7 @@ VMt = [];
 for i = 0:0.01:L
    VMt = [VMt VM(i)]; 
 end
-figure
+figure('Name',['Von Mises - Lastfall ' lastfall]);
 plot(0:0.01:L,VMt)
 %fplot(VM,[0 L]);
 %legend("Von Mises")
