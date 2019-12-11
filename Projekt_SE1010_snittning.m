@@ -102,10 +102,10 @@ T10 = @() -Hli + T9();                  %Normalkraft i X-axeln
 
     Aaxel = @(zt) zt^2*pi;                                      %Axel tvärsnittsarea
 
-    Mtot = @(x) sqrt(My(x)^2 + Mz(x)^2);                        %Sammansatt böjmoment
-    Smax = @(x) N(x) / Aaxel(z(x)) + Mtot(x) / Wb(z(x));        %Maxspänningen i axeln
-    Tmax = @(x) Mx(x) / Wv(z(x));                               %Max skjuvspänning        
-    VM = @(x) sqrt(Smax(x)^2 + 3*Tmax(x)^2);
+    Mtot = @(xt) sqrt(My(xt)^2 + Mz(xt)^2);                        %Sammansatt böjmoment
+    Smax = @(xt) N(xt) / Aaxel(z(xt)) + Mtot(xt) / Wb(z(xt));        %Maxspänningen i axeln
+    Tmax = @(xt) Mx(xt) / Wv(z(xt));                               %Max skjuvspänning        
+    VM = @(xt) sqrt(Smax(xt)^2 + 3*Tmax(xt)^2);
 
     %kolla kap 32.2 nominell*kt
     
@@ -169,7 +169,12 @@ ylabel('Moment [Nm] / Kraft [N]')
 title(['Normalkraft mot YZ-planet - Lastfall ' lastfall])
 grid on
 
+VMt = [];
+for i = 0:0.01:L
+   VMt = [VMt VM(i)]; 
+end
 figure
+plot(0:0.01:L,VMt)
 %fplot(VM,[0 L]);
 %legend("Von Mises")
 xlabel('Position längs X-axeln [m]')
