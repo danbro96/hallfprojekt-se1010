@@ -3,6 +3,7 @@ clear all, close all, clc
 %{
 Hållfasthetslära SE1010 Projektuppgift
 Del 1
+https://github.com/danbro96/hallfprojekt-se1010
 
 2019-12-06
 Grupp 15
