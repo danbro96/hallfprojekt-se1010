@@ -53,5 +53,5 @@ Grupp 15
     g   = 9.82;             %m/s2       Tyngdacceleration
     pluft = 1.21;           %kg/m3      Densitet luft
 
-    D = 0.044               %m          Axelns diameter
-    d = 0.6*D
+    D = 0.044;               %m          Axelns diameter
+    d = 0.6*D;

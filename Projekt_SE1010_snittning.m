@@ -155,20 +155,22 @@ for i=1:length(Snitt)
     
     
     %------------VON MISES------------
-    if Snitt(1,i) < b1
+    if Snitt(1,i) <= b1
         z = d/2;
     elseif Snitt(1,i) < L-b1
         z = D/2;
     else
         z = d/2;
     end
-    Wb = pi*z^3/32;                 %Se FS 6.9
-    Wv = pi*z^3/16;                 %Se FS 6.78
+    %Wb = pi*z^3/32;                 %Se FS 6.9      %Böjmotstånd
+    %Wv = pi*z^3/16;                 %Se FS 6.78     %Vridmotstånd
     
-    %I = pi*a^4/4;                %Se FS 30.1.3
-    %Wb=I/z
-    Aaxel = z^2*pi;
-    Mtot = (Snitt(2,i)^2 + Snitt(3,i)^2)^0.5;       %Sammansatt böjmoment
+    I = pi*z^4/4;                                   %Areatröthetsmoment     Se FS 30.1.3
+    Wb = I/abs(z);                                  %Böjmotstånd            Se G.L. S79 
+    Wv = pi*z^3/2;                                  %Vridmotstånd           Se FS 6.78
+   
+    Aaxel = z^2*pi;                                 %Axel tvärsnittsarea
+    Mtot = sqrt(Snitt(2,i)^2 + Snitt(3,i)^2);       %Sammansatt böjmoment
     Smax = Snitt(7,i) / Aaxel + Mtot / Wb;          %Maxspänningen i axeln
     Tmax = Snitt(4,i) / Wv;                         %Max skjuvspänning        
     
@@ -185,7 +187,7 @@ for i=1:length(Snitt)
     %taux = Snitt(4,i)/Wv;
 
     %Snitt(8,i) = (sigmay^2 + sigmaz^2 + Smax^2 + sigmay*sigmaz + sigmay*sigmax + sigmaz*sigmax + 3*Tmax^2 + 3*tauy^2 + 3*tauz^2)^0.5;
-    Snitt(8,i) = (Smax^2 + 3*Tmax^2)^0.5;
+    Snitt(8,i) = sqrt(Smax^2 + 3*Tmax^2);
 
     
 end
