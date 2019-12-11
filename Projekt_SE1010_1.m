@@ -30,7 +30,7 @@ Grupp 15
     
 %% 1a   -   Körning rakt fram med konstant fart, v
 clc
-    lastfall = 'A'
+    lastfall = 'A';
 	v0  = v;                %m/s        Ursprungsfart
     a   = 0;                %m/s2       Acceleration
     t   = 0;                %s          Förfluten tid sedan påbörjad acceleration
@@ -42,7 +42,7 @@ Projekt_SE1010_snittning
 
 %% 1b   -   Konstant acceleration, a1, påbörjad låg fart, v0
 clc
-    lastfall = 'B'
+    lastfall = 'B';
     v0  = 1/6 * v;          %m/s        Ursprungsfart
     a   = a1;               %m/s2       Acceleration
     t   = 0;                %s          Förfluten tid sedan påbörjad acceleration
@@ -54,7 +54,7 @@ Projekt_SE1010_snittning
 
 %% 1c   -   Bromsning från maxfart med konstant retardation, a2
 clc
-    lastfall = 'C'
+    lastfall = 'C';
     v0  = v;                %m/s        Ursprungsfart
     a   = a2;               %m/s2       Acceleration
     t   = 0;                %s          Förfluten tid sedan påbörjad acceleration
@@ -66,7 +66,7 @@ Projekt_SE1010_snittning
 
 %% 1d   -   Körning med konstant fart, 0.5*v, i kurva med radie R
 clc
-    lastfall = 'D'
+    lastfall = 'D';
     v0  = 1/2 * v;          %m/s        Ursprungsfart
     a   = 0;                %m/s2       Acceleration
     t   = 0;                %s          Förfluten tid sedan påbörjad acceleration

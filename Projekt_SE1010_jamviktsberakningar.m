@@ -172,7 +172,7 @@ Fli = Fk + Fd - Fly
 Fly = (- Fk * bd - (L/2-b1) *(Fk + Fd))/(- 2*(L/2-b1));
 Fli = Fk + Fd - Fly;
 %%
-disp('Yttre belastningar')
+disp(['Yttre belastningar lastfall ' lastfall])
 fprintf(' Vbi = %g N\n Vby = %g N\n Vf = %g N\n Hbi = %g N\n Hby = %g N\n Hf = %g N\n Fd = %g N\n\n ',Vbi,Vby,Vf,Hbi,Hby,Hf,Fd)
-disp('Inre krafter')
+disp(['Inre krafter lastfall ' lastfall])
 fprintf(' Fk = %g N\n Fb = %g N\n Vli = %g N\n Vly = %g N\n Hli = %g N\n Fli = %g N\n Fly = %g N\n',Fk,Fb,Vli,Vly,Hli,Fli,Fly)

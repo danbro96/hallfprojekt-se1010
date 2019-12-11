@@ -22,7 +22,7 @@ Grupp 15
     y = framåt
     z = uppåt
 %}
-x = 0:0.01:L;
+x = 0:0.001:L;
 Snitt = zeros(8, length(x));
 Snitt(1,:) = x;
 SP = [b1 L/2-bb L/2+bd L-b1 L];         %Snittpunkter
@@ -153,8 +153,13 @@ for i=1:length(Snitt)
         Snitt(7,i) = T10();
     end
     
+    %-----Beräkning av axeldiameter D & d-------
+    D = * ns;
     
     %------------VON MISES------------
+  syms x
+y = piecewise(x<0, -1, x>0, 1)
+
     if Snitt(1,i) <= b1
         z = d/2;
     elseif Snitt(1,i) < L-b1
@@ -175,17 +180,13 @@ for i=1:length(Snitt)
     Tmax = Snitt(4,i) / Wv;                         %Max skjuvspänning        
     
     %kolla kap 32.2 nominell*kt
-
-    %sigmaz = Snitt(5,i)/Aaxel;
-    %sigmay = Snitt(6,i)/Aaxel;
-    %sigmay = 0;
-    %sigmaz = 0;
-    %sigmax = Snitt(7,i)/Aaxel;
-    
-    %tauy = Snitt(2,i)/Wv;
-    %tauz = Snitt(3,i)/Wv;
-    %taux = Snitt(4,i)/Wv;
-
+    %{
+qn1 = Wb - (pi*d^3)/32 == 0;
+qn2 = Wv - (pi*d^3)/16 == 0;
+qn3 = Sigma_max - M_tot/Wb == 0;
+qn4 = t_max - Mv/Wv == 0;
+qn5 = Sigma_eff - sqrt(abs((Sigma_max)^2+3*(t_max)^2)) == 0;
+%}
     %Snitt(8,i) = (sigmay^2 + sigmaz^2 + Smax^2 + sigmay*sigmaz + sigmay*sigmax + sigmaz*sigmax + 3*Tmax^2 + 3*tauy^2 + 3*tauz^2)^0.5;
     Snitt(8,i) = sqrt(Smax^2 + 3*Tmax^2);
 
