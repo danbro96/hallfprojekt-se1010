@@ -54,5 +54,5 @@ Grupp 15
     pluft = 1.21;           %kg/m3      Densitet luft
     SMmax = 325*10^6;       %Pa         Max sträckgräns stål SS-1650-01 Sträckgräns 325
 
-    D = 0.044;               %m          Axelns diameter
+    D = 0.043;               %m          Axelns diameter
     d = 0.6*D;

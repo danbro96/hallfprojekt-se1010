@@ -54,7 +54,7 @@ t   = 0;                %s          Förfluten tid sedan påbörjad acceleration
 R0  = inf;              %m          Radie kurva
 
 Projekt_SE1010_jamviktsberakningar
-%Projekt_SE1010_snittning
+Projekt_SE1010_snittning
 
 %% 1c   -   Bromsning från maxfart med konstant retardation, a2
 clear all, close all, clc
@@ -70,7 +70,7 @@ t   = 0;                %s          Förfluten tid sedan påbörjad acceleration
 R0  = inf;              %m          Radie kurva
 
 Projekt_SE1010_jamviktsberakningar
-%Projekt_SE1010_snittning
+Projekt_SE1010_snittning
 
 %% 1d   -   Körning med konstant fart, 0.5*v, i kurva med radie R
 clear all, close all, clc

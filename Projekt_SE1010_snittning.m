@@ -87,46 +87,7 @@ T10 = @() -Hli + T9();                  %Normalkraft i X-axeln
     clear z
     z(x) = piecewise(0 < x <= b1, d/2, b1 < x < L-b1, D/2, L-b1 <= x < L, d/2);
 
-    %%
-    %-----Beräkning av axeldiameter D & d-------
-    
-    %D = * ns;
-    Smax = SMmax / ns;
-    Mxmax = double(max(Mx(0:0.01:L)));
-    Mymax = double(max(My(0:0.01:L)));
-    Mzmax = double(max(Mz(0:0.01:L)));
-    Nmax = double(max(N(0:0.01:L)));
-
-    syms zt
-
-qn1 = SMmax *zt^2*pi/ ns == Nmax  + sqrt(Mymax^2 + Mzmax^2) * 4 / zt;
-
-s = solve([qn1], [zt]);
-%d = getfield(s,'zt');
-
-%d = vpa(d)
-    %%
-    biggest = 0;
-    where = 0;
-    for i = 0:0.01:L
-        if abs(Smax(i)) > biggest
-            biggest = Smax(i);
-            where = i
-        end
-    end
-%%
-
-    
-    %Tmax = Mxmax / (pi*zt^3/2);                               %Max skjuvspänning        
-    %VM = sqrt(Smax^2 + 3*Tmax^2);
-    
-    %Mtot = sqrt(Mymax^2 + Mzmax^2);                        %Sammansatt böjmoment
-    %Smax = Nmax / (zt^2*pi) + Mtot / (pi*zt^4/4/abs(zt));        %Maxspänningen i axeln
-
-    %Smax = Nmax / (zt^2*pi) + sqrt(Mymax^2 + Mzmax^2) * (4*abs(zt)/ (pi*zt^4)
-    %pi*Smax*zt^3 = Nmax*zt + 4*sqrt(Mymax^2 + Mzmax^2)
-
-    %------------VON MISES------------
+%% ------------VON MISES------------
 
     %Wb = pi*z^3/32;                 %Se FS 6.9      %Böjmotstånd
     %Wv = pi*z^3/16;                 %Se FS 6.78     %Vridmotstånd
@@ -142,16 +103,34 @@ s = solve([qn1], [zt]);
     Tmax = @(xt) Mx(xt) / Wv(z(xt));                               %Max skjuvspänning        
     VM = @(xt) sqrt(Smax(xt)^2 + 3*Tmax(xt)^2);
 
-    %kolla kap 32.2 nominell*kt
+    %% Beräkning av lokala spänningskoncentrationer vid övergångar samt bestämning av axeldiameter D
+    SSmax = SMmax / ns;                                 %Maximal spänning som får uppstå i materialet, inräknat säkerhetsfaktor ns.
+    D = 0.001;
+    d = 0.6*D;
+    KN = 1.45;                                          %Se F.S. 32.4 & 32.5
+    KM = 1.35;
+    KMx = 1.2;
+    SnomN = @(x, d) double(4*N(x)/(pi*d^2));
+    SnomM = @(x, d) double(32*Mtot(x)/(pi*d^3));
+    SnomMx = @(x, d) double(16*Mx(x)/(pi*d^3));
     
-    %{
-qn1 = Wb - (pi*d^3)/32 == 0;
-qn2 = Wv - (pi*d^3)/16 == 0;
-qn3 = Sigma_max - M_tot/Wb == 0;
-qn4 = t_max - Mv/Wv == 0;
-qn5 = Sigma_eff - sqrt(abs((Sigma_max)^2+3*(t_max)^2)) == 0;
-    %}
-    %Snitt(8,i) = (sigmay^2 + sigmaz^2 + Smax^2 + sigmay*sigmaz + sigmay*sigmax + sigmaz*sigmax + 3*Tmax^2 + 3*tauy^2 + 3*tauz^2)^0.5;
+    while true
+        SmaxN1 = KN*SnomN(b1, d);
+        SmaxM1 = KM*SnomM(b1, d);
+        SmaxMx1 = KMx*SnomMx(b1, d);
+        
+        SmaxN2 = KN*SnomN(L-b1, d);
+        SmaxM2 = KM*SnomM(L-b1, d);
+        SmaxMx2 = KMx*SnomMx(L-b1, d);
+        if SSmax > SmaxN1 && SSmax > SmaxM1 && SSmax > SmaxMx1 && SSmax > SmaxN2 && SSmax > SmaxM2 && SSmax > SmaxMx2
+            break
+        end
+        D = D+0.001;
+        d = 0.6*D;
+    end
+    disp([newline 'Slutgiltig nödvändig diameter D för lastfall ' lastfall ': ' num2str(D*1000) ' mm.'])
+    disp(['d: ' num2str(d*1000) ' mm.'])
+    disp(['Värde för grafer anges i Projekt_SE1010_variabler!'])
 
 %% PLOTTAR
 close all
