@@ -130,7 +130,8 @@ T10 = @() -Hli + T9();                  %Normalkraft i X-axeln
     end
     disp([newline 'Slutgiltig nödvändig diameter D för lastfall ' lastfall ': ' num2str(D*1000) ' mm.'])
     disp(['d: ' num2str(d*1000) ' mm.'])
-    disp(['Värde för grafer anges i Projekt_SE1010_variabler!'])
+    disp(['Värde för grafer anges i Projekt_SE1010_variabler!' ])
+fprintf('\nSträckgräns av material: %g Pa\n\nNormalspänning vid b1:   %g Pa\nBöjmoment vid b1:        %g Pa\nVridmoment vid b1:       %g Pa\nNormalspänning vid L-b1: %g Pa\nBöjmoment vid L-b1:      %g Pa\nVridmoment vid L-b1:     %g Pa\n\n ',SSmax,SmaxN1,SmaxM1,SmaxMx1,SmaxN2,SmaxM2,SmaxMx2)
 
 %% PLOTTAR
 close all
