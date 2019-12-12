@@ -1,9 +1,9 @@
 %{
 Hållfasthetslära SE1010 Projektuppgift
-Del 1, jämviktsberäkningar
+Jämviktsberäkningar
 https://github.com/danbro96/hallfprojekt-se1010
 
-2019-12-06
+2019-12-11
 Grupp 15
 
     VARIABELINDEXERING
@@ -92,10 +92,6 @@ Hby = Hf*df/db/(Vbi/Vby+1);
 Hbi = Hf*df/db/(Vby/Vbi+1); 
 Fd  = Fl + m*a;
 
-
-
-
-
 %%  ---------------------------------------------
    %Friläggning av bakaxeln
    %---------------------------------------------
@@ -148,8 +144,6 @@ Hli = Hbi + Hby;
 -(L/2-b1)   *Vli +      (L/2-b1)    *Vly +      0               *Fli +      0           *Fly = -Vbi * L/2 + Vby * L/2 - (Hbi+Hby) * rh - Fb * bb
 0           *Vli +      0           *Vly +      (L/2-b1)        *Fli +      -(L/2-b1)	*Fly = - Fk * bd
 
-
-
 %Sökes: Vli, Vly, Fli, Fly
 
 Vly = -Vli + Vbi + Vby + Fb
@@ -172,7 +166,7 @@ Fli = Fk + Fd - Fly
 Fly = (- Fk * bd - (L/2-b1) *(Fk + Fd))/(- 2*(L/2-b1));
 Fli = Fk + Fd - Fly;
 %%
-disp('Yttre belastningar')
+disp(['Yttre belastningar lastfall ' lastfall])
 fprintf(' Vbi = %g N\n Vby = %g N\n Vf = %g N\n Hbi = %g N\n Hby = %g N\n Hf = %g N\n Fd = %g N\n\n ',Vbi,Vby,Vf,Hbi,Hby,Hf,Fd)
-disp('Inre krafter')
+disp(['Inre krafter lastfall ' lastfall])
 fprintf(' Fk = %g N\n Fb = %g N\n Vli = %g N\n Vly = %g N\n Hli = %g N\n Fli = %g N\n Fly = %g N\n',Fk,Fb,Vli,Vly,Hli,Fli,Fly)
