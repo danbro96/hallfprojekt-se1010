@@ -107,12 +107,12 @@ T10 = @() -Hli + T9();                  %Normalkraft i X-axeln
     SSmax = SMmax / ns;                                 %Maximal spänning som får uppstå i materialet, inräknat säkerhetsfaktor ns.
     D = 0.001;
     d = 0.6*D;
-    KN = 1.45;                                          %Se F.S. 32.4 & 32.5
-    KM = 1.35;
-    KMx = 1.2;
-    SnomN = @(x, d) double(4*N(x)/(pi*d^2));
-    SnomM = @(x, d) double(32*Mtot(x)/(pi*d^3));
-    SnomMx = @(x, d) double(16*Mx(x)/(pi*d^3));
+    KN = 1.6;                                           %Se F.S. 32.4
+    KM = 1.53;                                          %Se F.S. 32.5
+    KMx = 1.3;                                          %Se F.S. 32.5
+    SmaxN = @(x, d) KN*double(4*N(x)/(pi*d^2));
+    SmaxM = @(x, d) KM*double(32*Mtot(x)/(pi*d^3));
+    SmaxMx = @(x, d) KMx*double(16*Mx(x)/(pi*d^3));
     
     while true
         SmaxN1 = KN*SnomN(b1, d);
@@ -122,7 +122,16 @@ T10 = @() -Hli + T9();                  %Normalkraft i X-axeln
         SmaxN2 = KN*SnomN(L-b1, d);
         SmaxM2 = KM*SnomM(L-b1, d);
         SmaxMx2 = KMx*SnomMx(L-b1, d);
-        if SSmax > SmaxN1 && SSmax > SmaxM1 && SSmax > SmaxMx1 && SSmax > SmaxN2 && SSmax > SmaxM2 && SSmax > SmaxMx2
+        
+        SmaxNd = KN*SnomN(L/2+bd, d);
+        SmaxMd = KM*SnomM(L/2+bd, d);
+        SmaxMxd = KMx*SnomMx(L/2+bd, d);
+        
+        SmaxNb = KN*SnomN(L/2-bd, d);
+        SmaxMb = KM*SnomM(L/2-bd, d);
+        SmaxMxb = KMx*SnomMx(L/2-bd, d);
+        
+        if SSmax > abs(SmaxN1) && SSmax > abs(SmaxM1) && SSmax > abs(SmaxMx1) && SSmax > abs(SmaxN2) && SSmax > abs(SmaxM2) && SSmax > abs(SmaxMx2) && SSmax > abs(SmaxNd) && SSmax > abs(SmaxMd) && SSmax > abs(SmaxMxd) && SSmax > abs(SmaxNb) && SSmax > abs(SmaxMb) && SSmax > abs(SmaxMxb)
             break
         end
         D = D+0.001;
@@ -131,8 +140,54 @@ T10 = @() -Hli + T9();                  %Normalkraft i X-axeln
     disp([newline 'Slutgiltig nödvändig diameter D för lastfall ' lastfall ': ' num2str(D*1000) ' mm.'])
     disp(['d: ' num2str(d*1000) ' mm.'])
     disp(['Värde för grafer anges i Projekt_SE1010_variabler!' ])
-fprintf('\nSträckgräns av material: %g Pa\n\nNormalspänning vid b1:   %g Pa\nBöjmoment vid b1:        %g Pa\nVridmoment vid b1:       %g Pa\nNormalspänning vid L-b1: %g Pa\nBöjmoment vid L-b1:      %g Pa\nVridmoment vid L-b1:     %g Pa\n\n ',SSmax,SmaxN1,SmaxM1,SmaxMx1,SmaxN2,SmaxM2,SmaxMx2)
+fprintf('\nSträckgräns av material:   %g Pa\n\nNormalspänning vid b1:     %g Pa\nBöjmoment vid b1:          %g Pa\nVridmoment vid b1:         %g Pa\nNormalspänning vid L-b1:   %g Pa\nBöjmoment vid L-b1:        %g Pa\nVridmoment vid L-b1:       %g Pa\nNormalspänning vid L/2+bd: %g Pa\nBöjmoment vid L/2+bd:      %g Pa\nVridmoment vid L/2+bd:     %g Pa\nNormalspänning vid L/2-bb: %g Pa\nBöjmoment vid L/2-bb:      %g Pa\nVridmoment vid L/2-bb:     %g Pa\n\n ',SSmax,SmaxN1,SmaxM1,SmaxMx1,SmaxN2,SmaxM2,SmaxMx2,SmaxNd,SmaxMd,SmaxMxd,SmaxNb,SmaxMb,SmaxMxb)
+%% UTMATTNING; reduktion av utmattningsdata figur 163 GH s.255 Ex. 43 s.259 GH
+% Materialval Tab. 33.1 s.386 i FS , #7 SIS-141650-01
+Rm  = 590; %MPa Brottgräns
+Su  = 200; %+-200MPa sigma u, betecknar utmattningsgränsen vid växlande drag/tryck
+Sup = 180; %180+-180MPa sigma up, betecknar utmattningsgränsen vid pulserande drag eller tryck
+Subp = 240; %240+-240MPa sigma ubp, betecknar utmattningsgränsen vid pulserande böjning
+Ss  = 310; %sigma s >310 MPa Sträckgräns
+%KN = 1.65;       %Spänningskoncentrationsfaktorn, drag figur 159b GH s.252
+%KM = 1.45;       %Spänningskoncentrationsfaktorn, böj figur 159c GH s.252
+q   = 0.85;        %Kälkänslighetsfaktorn Figur 160 GH s.252
 
+lambda = 1;%Teknologisk dimensionsfaktor. Axel ej gjuten figur 163 GH s.255
+Kfd = 1 + q*(KN-1);  %Anvisningsfaktorn drag Ekv.(13-12) GH s.252
+Kfb = 1 + q*(KM-1);  %Anvisningsfaktorn böj Ekv.(13-12) GH s.252
+Kd = 1;             %Geometriska volymsfaktorn figur 163 GH s.255
+Kr = 1/0.975;   %Ra = 0.8my m enligt Ytfinhet wiki turning, figur 162b GH s.254
+
+redfd = lambda/(Kfd*Kd*Kr); %reduktionsfaktor drag
+redfb = lambda/(Kfb*Kd*Kr); %reduktionsfaktor drag Blir väldigt lika
+redf = redfd
+%Kdd = 1/0.96; %Geometriska volymsfaktorn figur 161 GH s.253
+%KdD = 1/0.925
+
+Haigh(x) = piecewise(0<=x<Sup, Su+((Sup-Su)/Sup)*x, Sup<=x<=Rm, Sup+(Sup/(Rm-Sup))*Sup+(Sup/(Sup-Rm))*x);
+redSu = Su*redf;
+redSup = Sup*redf;
+redHaigh(x) = piecewise(0<=x<Sup, redSu+((redSup-redSu)/Sup)*x, Sup<=x<=Rm, redSup+(redSup/(Rm-Sup))*Sup+(redSup/(Sup-Rm))*x);
+LSs = @(x) Ss-x %Linjen sigma s
+
+figure
+fplot(Haigh,[0 Rm])
+xlabel('Sigma m [MPa]')
+ylabel('Sigma a [MPa]')
+title('Haighdiagram')
+grid on
+axis equal
+hold on
+fplot(redHaigh,[0 Rm])
+
+fplot(LSs, [0 Ss])
+legend('Haighdiagram','Reducerat Haighdiagram (Arbetslinje)','Sigma s')
+
+%Mittspänning och amplitud GH s.245 Nominella spänningar
+Sm = 0; %(Smax + smin)/2 %mittspänning sigma m = 0 vid rent växlande spänning
+Sa = SnomM; %S(Smax - Smin)/2 %spänningsamplitud sigma a
+R = -1; %Spänningsförhållande 
+% OB = n*OA Belastningslinjen ligger på y-axeln
 %% PLOTTAR
 close all
 
