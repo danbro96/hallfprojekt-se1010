@@ -57,11 +57,10 @@ Projekt_SE1010_jamviktsberakningar
 Projekt_SE1010_snittning
 
 %% 1c   -   Bromsning från maxfart med konstant retardation, a2
-clear all, close all, clc
+%clear all, close all, clc
 
-%Givna variabler
+%Givna vriabler
 Projekt_SE1010_variabler
-
 lastfall = 'C';
 v0  = v;                %m/s        Ursprungsfart
 a   = a2;               %m/s2       Acceleration
@@ -71,6 +70,7 @@ R0  = inf;              %m          Radie kurva
 
 Projekt_SE1010_jamviktsberakningar
 Projekt_SE1010_snittning
+
 
 %% 1d   -   Körning med konstant fart, 0.5*v, i kurva med radie R
 clear all, close all, clc
@@ -88,6 +88,44 @@ R0  = R;                %m          Radie kurva
 Projekt_SE1010_jamviktsberakningar
 Projekt_SE1010_snittning
 
+
+
+
+
+
+
+
+%% 1b   -   Konstant acceleration, a1, påbörjad låg fart, v0
+clear all, close all, clc
+VMt = [];
+for i = 0.1:0.05:0.3
+%Givna variabler
+Projekt_SE1010_variabler
+bd = i
+lastfall = 'B';
+v0  = 1/6 * v;          %m/s        Ursprungsfart
+a   = a1;               %m/s2       Acceleration
+t   = 0;                %s          Förfluten tid sedan påbörjad acceleration
+
+R0  = inf;              %m          Radie kurva
+
+Projekt_SE1010_jamviktsberakningar
+Projekt_SE1010_snittning
+
+VMt = [];
+for i = 0:0.01:L
+   VMt = [VMt VM(i)]; 
+end
+%figure('Name',['Von Mises - Lastfall ' lastfall]);
+plot(0:0.01:L,VMt)
+%fplot(VM,[0 L]);
+%legend("Von Mises")
+xlabel('Position längs X-axeln [m]')
+ylabel('Moment [Nm] / Kraft [N]')
+title(['Von Mises - Lastfall ' lastfall])
+grid on
+hold on
+end
 %%
 
 %Sökes
@@ -95,3 +133,36 @@ Projekt_SE1010_snittning
 %d  = 0.6*D              %m          Axeldiameter vid hjul & lager
 
 
+%% 1c   -   Bromsning från maxfart med konstant retardation, a2
+%clear all, close all, clc
+VMt = [];
+for i = 0.2:0.05:0.4
+%Givna vriabler
+Projekt_SE1010_variabler
+bb = i
+
+lastfall = 'C';
+v0  = v;                %m/s        Ursprungsfart
+a   = a2;               %m/s2       Acceleration
+t   = 0;                %s          Förfluten tid sedan påbörjad acceleration
+
+R0  = inf;              %m          Radie kurva
+
+Projekt_SE1010_jamviktsberakningar
+Projekt_SE1010_snittning
+
+
+VMt = [];
+for i = 0:0.01:L
+   VMt = [VMt VM(i)]; 
+end
+%figure('Name',['Von Mises - Lastfall ' lastfall]);
+plot(0:0.01:L,VMt)
+%fplot(VM,[0 L]);
+%legend("Von Mises")
+xlabel('Position längs X-axeln [m]')
+ylabel('Moment [Nm] / Kraft [N]')
+title(['Von Mises - Lastfall ' lastfall])
+grid on
+hold on
+end

@@ -131,10 +131,13 @@ T10 = @() -Hli + T9();                  %Normalkraft i X-axeln
         SmaxMb = KM*SnomM(L/2-bd, D);
         SmaxMxb = KMx*SnomMx(L/2-bd, D);
         
+        %Smaxx = SmaxN1/Aaxel(z(b1)) + SmaxM1/ Wb(z(b1));
+        %Tmaxx = SmaxMx1 / Wv(z(b1));                               %Max skjuvspänning        
+        %VMx = sqrt(Smaxx^2 + 3*Tmaxx^2);
         if SSmax > abs(SmaxN1) && SSmax > abs(SmaxM1) && SSmax > abs(SmaxMx1) && SSmax > abs(SmaxN2) && SSmax > abs(SmaxM2) && SSmax > abs(SmaxMx2) && SSmax > abs(SmaxNd) && SSmax > abs(SmaxMd) && SSmax > abs(SmaxMxd) && SSmax > abs(SmaxNb) && SSmax > abs(SmaxMb) && SSmax > abs(SmaxMxb)
             break
         end
-        D = D+0.001;
+        D = D+0.001
         d = 0.6*D;
     end
     disp([newline 'Slutgiltig nödvändig diameter D för lastfall ' lastfall ': ' num2str(D*1000) ' mm.'])
@@ -142,6 +145,9 @@ T10 = @() -Hli + T9();                  %Normalkraft i X-axeln
     disp(['Värde för grafer anges i Projekt_SE1010_variabler!' ])
 fprintf('\nSträckgräns av material:   %g Pa\n\nNormalspänning vid b1:     %g Pa\nBöjmoment vid b1:          %g Pa\nVridmoment vid b1:         %g Pa\nNormalspänning vid L-b1:   %g Pa\nBöjmoment vid L-b1:        %g Pa\nVridmoment vid L-b1:       %g Pa\nNormalspänning vid L/2+bd: %g Pa\nBöjmoment vid L/2+bd:      %g Pa\nVridmoment vid L/2+bd:     %g Pa\nNormalspänning vid L/2-bb: %g Pa\nBöjmoment vid L/2-bb:      %g Pa\nVridmoment vid L/2-bb:     %g Pa\n\n ',SSmax,SmaxN1,SmaxM1,SmaxMx1,SmaxN2,SmaxM2,SmaxMx2,SmaxNd,SmaxMd,SmaxMxd,SmaxNb,SmaxMb,SmaxMxb)
 %% UTMATTNING; reduktion av utmattningsdata figur 163 GH s.255 Ex. 43 s.259 GH
+
+%sigmaX = N/A+M/I*sin(v)
+
 % Materialval Tab. 33.1 s.386 i FS , #7 SIS-141650-01
 Rm  = 590; %MPa Brottgräns
 Su  = 200; %+-200MPa sigma u, betecknar utmattningsgränsen vid växlande drag/tryck
