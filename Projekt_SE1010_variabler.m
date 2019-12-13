@@ -44,7 +44,7 @@ Grupp 15
     rb  = 0.03;             %m          Bromsbackarnas position
     rd  = 0.03;             %m          Drevets radie
     bd  = 0.1;              %m          Drevets position
-    p1  = 0.003;            %m          Kälradie
+    p1  = 0.0045;           %m          Kälradie
     p2  = p1;               %m          Kälradie
     ns  = 3;                %           Säkerhetsfaktor mot plastisk deformation
     nu  = 1.8;              %           Säkerhetsfaktor mot utmattning

@@ -107,9 +107,9 @@ T10 = @() -Hli + T9();                  %Normalkraft i X-axeln
     SSmax = SMmax / ns;                                 %Maximal spänning som får uppstå i materialet, inräknat säkerhetsfaktor ns.
     D = 0.001;
     d = 0.6*D;
-    KN = 1.6;                                           %Se F.S. 32.4
-    KM = 1.53;                                          %Se F.S. 32.5
-    KMx = 1.3;                                          %Se F.S. 32.5
+    KN = 1.5;                                           %Se F.S. 32.4
+    KM = 1.35;                                          %Se F.S. 32.5
+    KMx = 1.2;                                          %Se F.S. 32.5
     SnomN = @(x, d) double(4*N(x)/(pi*d^2));
     SnomM = @(x, d) double(32*Mtot(x)/(pi*d^3));
     SnomMx = @(x, d) double(16*Mx(x)/(pi*d^3));
@@ -160,26 +160,45 @@ Kr = 1/0.975;   %Ra = 0.8my m enligt Ytfinhet wiki turning, figur 162b GH s.254
 
 redfd = lambda/(Kfd*Kd*Kr); %reduktionsfaktor drag
 redfb = lambda/(Kfb*Kd*Kr); %reduktionsfaktor drag Blir väldigt lika
-redf = redfd
+%redf = redfd;
 %Kdd = 1/0.96; %Geometriska volymsfaktorn figur 161 GH s.253
 %KdD = 1/0.925
 
 Haigh(x) = piecewise(0<=x<Sup, Su+((Sup-Su)/Sup)*x, Sup<=x<=Rm, Sup+(Sup/(Rm-Sup))*Sup+(Sup/(Sup-Rm))*x);
-redSu = Su*redf;
-redSup = Sup*redf;
+redSu = Su*redfd;
+redSup = Sup*redfd;
 redHaigh(x) = piecewise(0<=x<Sup, redSu+((redSup-redSu)/Sup)*x, Sup<=x<=Rm, redSup+(redSup/(Rm-Sup))*Sup+(redSup/(Sup-Rm))*x);
-LSs = @(x) Ss-x %Linjen sigma s
+LSs = @(x) Ss-x; %Linjen sigma s
 
 figure
-fplot(Haigh,[0 Rm])
+fplot(Haigh/nu,[0 Rm])
 xlabel('Sigma m [MPa]')
 ylabel('Sigma a [MPa]')
-title('Haighdiagram')
+title('Haighdiagram Drag')
 grid on
 axis equal
 hold on
-fplot(redHaigh,[0 Rm])
+fplot(redHaigh/nu,[0 Rm])
+fplot(LSs, [0 Ss])
+legend('Haighdiagram','Reducerat Haighdiagram (Arbetslinje)','Sigma s')
 
+
+
+
+redSu = Su*redfb;
+redSup = Sup*redfb;
+redHaigh(x) = piecewise(0<=x<Sup, redSu+((redSup-redSu)/Sup)*x, Sup<=x<=Rm, redSup+(redSup/(Rm-Sup))*Sup+(redSup/(Sup-Rm))*x);
+LSs = @(x) Ss-x; %Linjen sigma s
+
+figure
+fplot(Haigh/nu,[0 Rm])
+xlabel('Sigma m [MPa]')
+ylabel('Sigma a [MPa]')
+title('Haighdiagram Böj')
+grid on
+axis equal
+hold on
+fplot(redHaigh/nu,[0 Rm])
 fplot(LSs, [0 Ss])
 legend('Haighdiagram','Reducerat Haighdiagram (Arbetslinje)','Sigma s')
 
@@ -189,7 +208,7 @@ Sa = SnomM; %S(Smax - Smin)/2 %spänningsamplitud sigma a
 R = -1; %Spänningsförhållande 
 % OB = n*OA Belastningslinjen ligger på y-axeln
 %% PLOTTAR
-close all
+%close all
 
 figure('Name',['Moment XZ-planet runt Y - Lastfall ' lastfall]);
 fplot(My,[0 L]);
