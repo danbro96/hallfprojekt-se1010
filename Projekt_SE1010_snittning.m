@@ -110,9 +110,9 @@ T10 = @() -Hli + T9();                  %Normalkraft i X-axeln
     KN = 1.6;                                           %Se F.S. 32.4
     KM = 1.53;                                          %Se F.S. 32.5
     KMx = 1.3;                                          %Se F.S. 32.5
-    SmaxN = @(x, d) KN*double(4*N(x)/(pi*d^2));
-    SmaxM = @(x, d) KM*double(32*Mtot(x)/(pi*d^3));
-    SmaxMx = @(x, d) KMx*double(16*Mx(x)/(pi*d^3));
+    SnomN = @(x, d) double(4*N(x)/(pi*d^2));
+    SnomM = @(x, d) double(32*Mtot(x)/(pi*d^3));
+    SnomMx = @(x, d) double(16*Mx(x)/(pi*d^3));
     
     while true
         SmaxN1 = KN*SnomN(b1, d);
@@ -123,13 +123,13 @@ T10 = @() -Hli + T9();                  %Normalkraft i X-axeln
         SmaxM2 = KM*SnomM(L-b1, d);
         SmaxMx2 = KMx*SnomMx(L-b1, d);
         
-        SmaxNd = KN*SnomN(L/2+bd, d);
-        SmaxMd = KM*SnomM(L/2+bd, d);
-        SmaxMxd = KMx*SnomMx(L/2+bd, d);
+        SmaxNd = KN*SnomN(L/2+bd, D);
+        SmaxMd = KM*SnomM(L/2+bd, D);
+        SmaxMxd = KMx*SnomMx(L/2+bd, D);
         
-        SmaxNb = KN*SnomN(L/2-bd, d);
-        SmaxMb = KM*SnomM(L/2-bd, d);
-        SmaxMxb = KMx*SnomMx(L/2-bd, d);
+        SmaxNb = KN*SnomN(L/2-bd, D);
+        SmaxMb = KM*SnomM(L/2-bd, D);
+        SmaxMxb = KMx*SnomMx(L/2-bd, D);
         
         if SSmax > abs(SmaxN1) && SSmax > abs(SmaxM1) && SSmax > abs(SmaxMx1) && SSmax > abs(SmaxN2) && SSmax > abs(SmaxM2) && SSmax > abs(SmaxMx2) && SSmax > abs(SmaxNd) && SSmax > abs(SmaxMd) && SSmax > abs(SmaxMxd) && SSmax > abs(SmaxNb) && SSmax > abs(SmaxMb) && SSmax > abs(SmaxMxb)
             break
