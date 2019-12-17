@@ -24,7 +24,7 @@ Grupp 15
     y = framåt
     z = uppåt
 %}
-SSmax = SMmax / ns;                                 %Maximal spänning som får uppstå i materialet, inräknat säkerhetsfaktor ns.
+SSmax = Ss / ns;                                 %Maximal spänning som får uppstå i materialet, inräknat säkerhetsfaktor ns.
 D = 0.001;
 d = 0.6*D;
 

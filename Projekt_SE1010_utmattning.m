@@ -26,46 +26,38 @@ Grupp 15
 
 %sigmaX = N/A+M/I*sin(v)
 
-% Materialval Tab. 33.1 s.386 i FS , #7 SIS-141650-01
-Rm  = 590; %MPa Brottgräns
-Su  = 200; %+-200MPa sigma u, betecknar utmattningsgränsen vid växlande drag/tryck
-Sup = 180; %180+-180MPa sigma up, betecknar utmattningsgränsen vid pulserande drag eller tryck
-Subp = 240; %240+-240MPa sigma ubp, betecknar utmattningsgränsen vid pulserande böjning
-Ss  = 310; %sigma s >310 MPa Sträckgräns
-%KN = 1.65;       %Spänningskoncentrationsfaktorn, drag figur 159b GH s.252
-%KM = 1.45;       %Spänningskoncentrationsfaktorn, böj figur 159c GH s.252
-q   = 0.85;        %Kälkänslighetsfaktorn Figur 160 GH s.252
+q   = 0.85;                             %Kälkänslighetsfaktorn Figur 160 GH s.252
+lambda = 1;                             %Teknologisk dimensionsfaktor. Axel ej gjuten figur 163 GH s.255
+Kfd = 1 + q*(KN1-1);                    %Anvisningsfaktorn drag Ekv.(13-12) GH s.252
+Kfb = 1 + q*(KM1-1);                    %Anvisningsfaktorn böj Ekv.(13-12) GH s.252
+Kd = 1;                                 %Geometriska volymsfaktorn figur 163 GH s.255
+Kr = 1/0.975;                           %Ra = 0.8my m enligt Ytfinhet wiki turning, figur 162b GH s.254
 
-lambda = 1;%Teknologisk dimensionsfaktor. Axel ej gjuten figur 163 GH s.255
-Kfd = 1 + q*(KN-1);  %Anvisningsfaktorn drag Ekv.(13-12) GH s.252
-Kfb = 1 + q*(KM-1);  %Anvisningsfaktorn böj Ekv.(13-12) GH s.252
-Kd = 1;             %Geometriska volymsfaktorn figur 163 GH s.255
-Kr = 1/0.975;   %Ra = 0.8my m enligt Ytfinhet wiki turning, figur 162b GH s.254
-
-redfd = lambda/(Kfd*Kd*Kr); %reduktionsfaktor drag
-redfb = lambda/(Kfb*Kd*Kr); %reduktionsfaktor drag Blir väldigt lika
+redfd = lambda/(Kfd*Kd*Kr);             %reduktionsfaktor drag
+redfb = lambda/(Kfb*Kd*Kr);             %reduktionsfaktor drag Blir väldigt lika
 %redf = redfd;
-%Kdd = 1/0.96; %Geometriska volymsfaktorn figur 161 GH s.253
+%Kdd = 1/0.96;                          %Geometriska volymsfaktorn figur 161 GH s.253
 %KdD = 1/0.925
 
 Haigh(x) = piecewise(0<=x<Sup, Su+((Sup-Su)/Sup)*x, Sup<=x<=Rm, Sup+(Sup/(Rm-Sup))*Sup+(Sup/(Sup-Rm))*x);
 redSu = Su*redfd;
 redSup = Sup*redfd;
 redHaigh(x) = piecewise(0<=x<Sup, redSu+((redSup-redSu)/Sup)*x, Sup<=x<=Rm, redSup+(redSup/(Rm-Sup))*Sup+(redSup/(Sup-Rm))*x);
-LSs = @(x) Ss-x; %Linjen sigma s
+LSs = @(x) Ss-x;                        %Linjen sigma s
 
 figure
-fplot(Haigh/nu,[0 Rm])
-xlabel('Sigma m [MPa]')
-ylabel('Sigma a [MPa]')
+fplot(Haigh,[0 Rm])
+xlabel('Sigma m [Pa]')
+ylabel('Sigma a [Pa]')
 title('Haighdiagram Drag')
 grid on
 axis equal
 hold on
-fplot(redHaigh/nu,[0 Rm])
+fplot(redHaigh,[0 Rm])
 fplot(LSs, [0 Ss])
 legend('Haighdiagram','Reducerat Haighdiagram (Arbetslinje)','Sigma s')
 
+%Smax < redHaigh(0)/nu
 
 
 
@@ -76,8 +68,8 @@ LSs = @(x) Ss-x; %Linjen sigma s
 
 figure
 fplot(Haigh/nu,[0 Rm])
-xlabel('Sigma m [MPa]')
-ylabel('Sigma a [MPa]')
+xlabel('Sigma m [Pa]')
+ylabel('Sigma a [Pa]')
 title('Haighdiagram Böj')
 grid on
 axis equal

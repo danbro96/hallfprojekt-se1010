@@ -52,7 +52,17 @@ Grupp 15
 %Övriga variabler
     g   = 9.82;             %m/s2       Tyngdacceleration
     pluft = 1.21;           %kg/m3      Densitet luft
-    SMmax = 325*10^6;       %Pa         Max sträckgräns stål SS-1650-01 Sträckgräns 325
+    
+    % Materialval Tab. 33.1 s.386 i FS , #7 SIS-141650-01
+    Rm  = 590*10^6;         %Pa         Brottgräns
+    Su  = 200*10^6;         %Pa         +-200MPa sigma u, betecknar utmattningsgränsen vid växlande drag/tryck
+    Sup = 180*10^6;         %Pa         180+-180MPa sigma up, betecknar utmattningsgränsen vid pulserande drag eller tryck
+    Subp = 240*10^6;        %Pa         240+-240MPa sigma ubp, betecknar utmattningsgränsen vid pulserande böjning
+    %Ss  = 310;             %Pa         sigma s >310 MPa Sträckgräns
+    %KN = 1.65;             %           Spänningskoncentrationsfaktorn, drag figur 159b GH s.252
+    %KM = 1.45;             %           Spänningskoncentrationsfaktorn, böj figur 159c GH s.252
+
+    Ss = 325*10^6;          %Pa         Sträckgräns stål SS-1650-01
     
     D = 0.043;               %m          Axelns diameter
     d = 0.6*D;
