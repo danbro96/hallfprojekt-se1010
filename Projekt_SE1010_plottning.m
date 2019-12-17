@@ -22,7 +22,7 @@ Grupp 15
     y = framåt
     z = uppåt
 %}
-%close all
+close all
 
 figure('Name',['Moment XZ-planet runt Y - Lastfall ' lastfall]);
 fplot(My,[0 L]);
@@ -78,8 +78,16 @@ for i = 0:0.01:L
 end
 figure('Name',['Von Mises - Lastfall ' lastfall]);
 plot(0:0.01:L,VMt)
+
+hold on
+plot(b1, VMx(b1),'r*')
+plot(L/2-bb, VMx(L/2-bb),'r*')
+plot(L/2+bd, VMx(L/2+bd),'r*')
+plot(L-b1, VMx(L-b1),'r*')
+hold off
+
 %fplot(VM,[0 L]);
-%legend("Von Mises")
+legend(['D = ' num2str(D) ' m'], 'Lokala spänningskoncentrationer')
 xlabel('Position längs X-axeln [m]')
 ylabel('Moment [Nm] / Kraft [N]')
 title(['Von Mises - Lastfall ' lastfall])

@@ -53,12 +53,22 @@ Grupp 15
     g   = 9.82;             %m/s2       Tyngdacceleration
     pluft = 1.21;           %kg/m3      Densitet luft
     SMmax = 325*10^6;       %Pa         Max sträckgräns stål SS-1650-01 Sträckgräns 325
-
+    
     D = 0.043;               %m          Axelns diameter
     d = 0.6*D;
     
+    %D/d=1.666, p1/d=0.163 =>
+    KN1 = 1.65;                                          %Se F.S. 32.4
+    KM1 = 1.48;                                          %Se F.S. 32.5
+    KMx1 = 1.3;                                          %Se F.S. 32.5a
+    
+    %rb*2/D & rd*2/D=1.3043, p2/D=0.0975 =>
+    KN2 = 1.9;
+    KM2 = 1.62
+    KMx2 = 1.4;
+    
     if abs(b1 - (L/2-bb)) < 0.001
-       error('VARNING, Bromsbacken är i hjullagret! b1 = L/2-bb') 
+        error('VARNING, Bromsbacken är i hjullagret! b1 = L/2-bb')
     end
     
     if abs(L-b1 - (L/2+bd)) < 0.001
