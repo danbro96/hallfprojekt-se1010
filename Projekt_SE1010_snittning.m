@@ -107,13 +107,13 @@ VM = @(xt) sqrt(Smax(xt)^2 + 3*Tmax(xt)^2);
 %OBS! Beräknas efter D i variabellistan
 
 KN(x) = piecewise(x*2 == d, KN1, x*2 == D, KN2);
-    KM(x) = piecewise(x*2 == d, KM1, x*2 == D, KM2);
-    KMx(x) = piecewise(x*2 == d, KMx1, x*2 == D, KMx2);
-    
-    SmaxN = @(x) KN(z(x))*N(x);
-    SmaxM = @(x) KM(z(x))*Mtot(x);
-    SmaxMx = @(x) KMx(z(x))*Mx(x);
-    
-    Smaxx = @(x) SmaxN(x)/Aaxel(z(x)) + SmaxM(x)/ Wb(z(x));
-    Tmaxx = @(x) SmaxMx(x) / Wv(z(x));
-    VMx = @(x) sqrt(Smaxx(x)^2 + 3*Tmaxx(x)^2);
+KM(x) = piecewise(x*2 == d, KM1, x*2 == D, KM2);
+KMx(x) = piecewise(x*2 == d, KMx1, x*2 == D, KMx2);
+
+SmaxN = @(x) KN(z(x))*N(x);
+SmaxM = @(x) KM(z(x))*Mtot(x);
+SmaxMx = @(x) KMx(z(x))*Mx(x);
+
+Smaxx = @(x) SmaxN(x)/Aaxel(z(x)) + SmaxM(x)/ Wb(z(x));
+Tmaxx = @(x) SmaxMx(x) / Wv(z(x));
+VMx = @(x) sqrt(Smaxx(x)^2 + 3*Tmaxx(x)^2);
