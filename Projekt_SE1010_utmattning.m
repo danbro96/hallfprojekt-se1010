@@ -29,8 +29,8 @@ Grupp 15
 
 Kx = [KN1 KN2 KM1 KM2];                 %KN = drag, KM = böj
 namn = {"Drag vid hjullager","Drag vid flänsar", "Böj vid hjullager", "Böj vid flänsar"};
-for i = 1:length(Kx)
-
+%for i = 1:length(Kx)
+i = 1;
 q   = 0.85;                             %Kälkänslighetsfaktorn Figur 160 GH s.252
 lambda = 1;                             %Teknologisk dimensionsfaktor. Axel ej gjuten figur 163 GH s.255
 Kf = 1 + q*(Kx(i)-1);                   %Anvisningsfaktorn drag Ekv.(13-12) GH s.252
@@ -61,31 +61,30 @@ fplot(redHaigh,[0 Rm])
 fplot(LSs, [0 Ss])
 legend('Haighdiagram','Reducerat Haighdiagram (Arbetslinje)','Sigma s')
 
-end
+%end
 %Smax < redHaigh(0)/nu
+%%
+%Mtot = redSub/nu*Wb(b1)
 
-Mtot = redSub/nu*Wb(b1)
+D = 0.001;
+d = 0.6*D;
 
+while true
+    z(x) = piecewise(0 < x <= b1, d/2, b1 < x < L-b1, D/2, L-b1 <= x < L, d/2);
+    Smax = @(xt) N(xt) / Aaxel(z(xt)) + Mtot(xt) / Wb(z(xt));       %Nominell maxspänningen i axeln
 
+    if Smax(b1) < redHaigh(0)/nu
+        break
+    end
+    D = D + 0.001;
+    d = 0.6*D;
+end
+%%
+disp([newline 'Nödvändig diameter D för utmattning lastfall ' lastfall ': ' num2str(D*1000) ' mm.'])
+disp(['d: ' num2str(d*1000) ' mm.'])
+disp(['Värde för grafer anges i Projekt_SE1010_variabler!' ])
 
-%{
-redSu = Su*redfb;
-redSup = Sup*redfb;
-redHaigh(x) = piecewise(0<=x<Sup, redSu+((redSup-redSu)/Sup)*x, Sup<=x<=Rm, redSup+(redSup/(Rm-Sup))*Sup+(redSup/(Sup-Rm))*x);
-LSs = @(x) Ss-x; %Linjen sigma s
-
-figure
-fplot(Haigh/nu,[0 Rm])
-xlabel('Sigma m [Pa]')
-ylabel('Sigma a [Pa]')
-title('Haighdiagram Böj')
-grid on
-axis equal
-hold on
-fplot(redHaigh/nu,[0 Rm])
-fplot(LSs, [0 Ss])
-legend('Haighdiagram','Reducerat Haighdiagram (Arbetslinje)','Sigma s')
-%}
+%%
 %Mittspänning och amplitud GH s.245 Nominella spänningar
 Sm = 0; %(Smax + smin)/2 %mittspänning sigma m = 0 vid rent växlande spänning
 %Sa = SnomM; %S(Smax - Smin)/2 %spänningsamplitud sigma a
