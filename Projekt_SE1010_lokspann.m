@@ -53,7 +53,7 @@ while true
 end
 
 %%
-disp([newline 'Slutgiltig nödvändig diameter D för lastfall ' lastfall ': ' num2str(D*1000) ' mm.'])
+disp([newline 'Nödvändig diameter D för maxstress lastfall ' lastfall ': ' num2str(D*1000) ' mm.'])
 disp(['d: ' num2str(d*1000) ' mm.'])
 disp(['Värde för grafer anges i Projekt_SE1010_variabler!' ])
 fprintf('\nSpänningar blir då:\nSträckgräns av material:   %g Pa\n\nMaxspänning vid b1:     %g Pa\nMaxspänning vid L/2-bb: %g Pa\nMaxspänning vid L/2+bd: %g Pa\nMaxspänning vid L-b1:   %g Pa\n\n ',SSmax,VMx(b1),VMx(L/2-bb),VMx(L/2+bd),VMx(L-b1))
