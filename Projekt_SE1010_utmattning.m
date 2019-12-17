@@ -26,22 +26,26 @@ Grupp 15
 
 %sigmaX = N/A+M/I*sin(v)
 
+
+Kx = [KN1 KN2 KM1 KM2];                 %KN = drag, KM = böj
+namn = {"Drag vid hjullager","Drag vid flänsar", "Böj vid hjullager", "Böj vid flänsar"};
+for i = 1:length(Kx)
+
 q   = 0.85;                             %Kälkänslighetsfaktorn Figur 160 GH s.252
 lambda = 1;                             %Teknologisk dimensionsfaktor. Axel ej gjuten figur 163 GH s.255
-Kfd = 1 + q*(KN1-1);                    %Anvisningsfaktorn drag Ekv.(13-12) GH s.252
-Kfb = 1 + q*(KM1-1);                    %Anvisningsfaktorn böj Ekv.(13-12) GH s.252
+Kf = 1 + q*(Kx(i)-1);                   %Anvisningsfaktorn drag Ekv.(13-12) GH s.252
 Kd = 1;                                 %Geometriska volymsfaktorn figur 163 GH s.255
 Kr = 1/0.975;                           %Ra = 0.8my m enligt Ytfinhet wiki turning, figur 162b GH s.254
 
-redfd = lambda/(Kfd*Kd*Kr);             %reduktionsfaktor drag
-redfb = lambda/(Kfb*Kd*Kr);             %reduktionsfaktor drag Blir väldigt lika
+redf = lambda/(Kf*Kd*Kr);               %reduktionsfaktor drag
 %redf = redfd;
 %Kdd = 1/0.96;                          %Geometriska volymsfaktorn figur 161 GH s.253
 %KdD = 1/0.925
 
 Haigh(x) = piecewise(0<=x<Sup, Su+((Sup-Su)/Sup)*x, Sup<=x<=Rm, Sup+(Sup/(Rm-Sup))*Sup+(Sup/(Sup-Rm))*x);
-redSu = Su*redfd;
-redSup = Sup*redfd;
+redSu = Su*redf;
+redSup = Sup*redf;
+redSub = Sub*redf;
 redHaigh(x) = piecewise(0<=x<Sup, redSu+((redSup-redSu)/Sup)*x, Sup<=x<=Rm, redSup+(redSup/(Rm-Sup))*Sup+(redSup/(Sup-Rm))*x);
 LSs = @(x) Ss-x;                        %Linjen sigma s
 
@@ -49,7 +53,7 @@ figure
 fplot(Haigh,[0 Rm])
 xlabel('Sigma m [Pa]')
 ylabel('Sigma a [Pa]')
-title('Haighdiagram Drag')
+title(['Haighdiagram - ' namn(i)])
 grid on
 axis equal
 hold on
@@ -57,10 +61,14 @@ fplot(redHaigh,[0 Rm])
 fplot(LSs, [0 Ss])
 legend('Haighdiagram','Reducerat Haighdiagram (Arbetslinje)','Sigma s')
 
+end
 %Smax < redHaigh(0)/nu
 
+Mtot = redSub/nu*Wb(b1)
 
 
+
+%{
 redSu = Su*redfb;
 redSup = Sup*redfb;
 redHaigh(x) = piecewise(0<=x<Sup, redSu+((redSup-redSu)/Sup)*x, Sup<=x<=Rm, redSup+(redSup/(Rm-Sup))*Sup+(redSup/(Sup-Rm))*x);
@@ -77,7 +85,7 @@ hold on
 fplot(redHaigh/nu,[0 Rm])
 fplot(LSs, [0 Ss])
 legend('Haighdiagram','Reducerat Haighdiagram (Arbetslinje)','Sigma s')
-
+%}
 %Mittspänning och amplitud GH s.245 Nominella spänningar
 Sm = 0; %(Smax + smin)/2 %mittspänning sigma m = 0 vid rent växlande spänning
 %Sa = SnomM; %S(Smax - Smin)/2 %spänningsamplitud sigma a
