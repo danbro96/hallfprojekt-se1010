@@ -38,7 +38,7 @@ Grupp 15
     h1  = 0.3;              %m          Avstånd mellan tyngdpunkt och luftmotståndets verkningslinje
     L   = 1.1;              %m          Bakaxellängd
     b1  = 0.15;             %m          Hjullagerposition
-    bb  = 0.4;              %m          Bromsskivans position
+    bb  = 0.35;              %m          Bromsskivans position
     dh  = 0.3;              %m          Hjuldiameter
     rh  = dh/2;             %m          Hjulradie
     rb  = 0.03;             %m          Bromsbackarnas position
@@ -56,3 +56,11 @@ Grupp 15
 
     D = 0.043;               %m          Axelns diameter
     d = 0.6*D;
+    
+    if abs(b1 - (L/2-bb)) < 0.001
+       error('VARNING, Bromsbacken är i hjullagret! b1 = L/2-bb') 
+    end
+    
+    if abs(L-b1 - (L/2+bd)) < 0.001
+       error('VARNING, Drevet är i hjullagret! L-b1 = L/2+bd') 
+    end
