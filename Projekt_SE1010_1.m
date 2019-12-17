@@ -40,6 +40,10 @@ R0  = inf;              %m          Radie kurva
 Projekt_SE1010_jamviktsberakningar
 Projekt_SE1010_snittning
 
+Projekt_SE1010_plottning
+Projekt_SE1010_lokspann
+Projekt_SE1010_utmattning
+
 %% 1b   -   Konstant acceleration, a1, påbörjad låg fart, v0
 clear all, close all, clc
 
@@ -56,8 +60,12 @@ R0  = inf;              %m          Radie kurva
 Projekt_SE1010_jamviktsberakningar
 Projekt_SE1010_snittning
 
+Projekt_SE1010_plottning
+Projekt_SE1010_lokspann
+Projekt_SE1010_utmattning
+
 %% 1c   -   Bromsning från maxfart med konstant retardation, a2
-%clear all, close all, clc
+clear all, close all, clc
 
 %Givna vriabler
 Projekt_SE1010_variabler
@@ -70,6 +78,10 @@ R0  = inf;              %m          Radie kurva
 
 Projekt_SE1010_jamviktsberakningar
 Projekt_SE1010_snittning
+
+Projekt_SE1010_plottning
+Projekt_SE1010_lokspann
+Projekt_SE1010_utmattning
 
 
 %% 1d   -   Körning med konstant fart, 0.5*v, i kurva med radie R
@@ -88,6 +100,9 @@ R0  = R;                %m          Radie kurva
 Projekt_SE1010_jamviktsberakningar
 Projekt_SE1010_snittning
 
+Projekt_SE1010_plottning
+Projekt_SE1010_lokspann
+Projekt_SE1010_utmattning
 
 
 
