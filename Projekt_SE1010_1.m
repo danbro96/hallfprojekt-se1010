@@ -3,7 +3,7 @@ Hållfasthetslära SE1010 Projektuppgift
 
 https://github.com/danbro96/hallfprojekt-se1010
 
-2019-12-11
+2019-12-17
 Grupp 15
 
     VARIABELINDEXERING
@@ -111,6 +111,8 @@ Projekt_SE1010_utmattning
 
 
 %% 1b   -   Konstant acceleration, a1, påbörjad låg fart, v0
+%Skapar graf för positionsbestämning av drev.
+
 clear all, close all, clc
 VMt = [];
 for i = 0.1:0.05:0.3
@@ -141,15 +143,10 @@ title(['Von Mises - Lastfall ' lastfall])
 grid on
 hold on
 end
-%%
-
-%Sökes
-%D                       %m          Bakaxelns diameter
-%d  = 0.6*D              %m          Axeldiameter vid hjul & lager
-
 
 %% 1c   -   Bromsning från maxfart med konstant retardation, a2
-%clear all, close all, clc
+%Skapar graf för positionsbestämning av bromsskiva.
+clear all, close all, clc
 VMt = [];
 for i = 0.2:0.05:0.4
 %Givna vriabler

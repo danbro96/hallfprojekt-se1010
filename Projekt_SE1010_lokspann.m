@@ -48,7 +48,7 @@ while true
     if SSmax > abs(VMx(b1)) && SSmax > abs(VMx(L/2-bb)) && SSmax > abs(VMx(L/2+bd)) && SSmax > abs(VMx(L-b1))
         break
     end
-    D = D+0.001
+    D = D+0.001;
     d = 0.6*D;
 end
 
@@ -56,13 +56,4 @@ end
 disp([newline 'Slutgiltig nödvändig diameter D för lastfall ' lastfall ': ' num2str(D*1000) ' mm.'])
 disp(['d: ' num2str(d*1000) ' mm.'])
 disp(['Värde för grafer anges i Projekt_SE1010_variabler!' ])
-fprintf('\nSträckgräns av material:   %g Pa\n\nMaxspänning vid b1:     %g Pa\nMaxspänning vid L/2-bb: %g Pa\nMaxspänning vid L/2+bd: %g Pa\nMaxspänning vid L-b1:   %g Pa\n\n ',SSmax,VMx(b1),VMx(L/2-bb),VMx(L/2+bd),VMx(L-b1))
-%{
-figure(7)
-hold on
-plot(b1, VMx(b1),'r*')
-plot(L/2-bb, VMx(L/2-bb),'r*')
-plot(L/2+bd, VMx(L/2+bd),'r*')
-plot(L-b1, VMx(L-b1),'r*')
-hold off
-%}
+fprintf('\nSpänningar blir då:\nSträckgräns av material:   %g Pa\n\nMaxspänning vid b1:     %g Pa\nMaxspänning vid L/2-bb: %g Pa\nMaxspänning vid L/2+bd: %g Pa\nMaxspänning vid L-b1:   %g Pa\n\n ',SSmax,VMx(b1),VMx(L/2-bb),VMx(L/2+bd),VMx(L-b1))
