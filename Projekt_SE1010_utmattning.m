@@ -30,7 +30,6 @@ Grupp 15
 Kx = [KN1 KN2];                 %KN = drag, KM = böj
 namn = {"Drag vid hjullager","Drag vid flänsar"};
 for i = 1:length(Kx)
-    i = 1;
     q   = 0.85;                             %Kälkänslighetsfaktorn Figur 160 GH s.252
     lambda = 1;                             %Teknologisk dimensionsfaktor. Axel ej gjuten figur 163 GH s.255
     Kf = 1 + q*(Kx(i)-1);                   %Anvisningsfaktorn drag Ekv.(13-12) GH s.252
@@ -70,14 +69,26 @@ for i = 1:length(Kx)
     d = 0.6*D;
     
     while true
-        z(x) = piecewise(0 < x <= b1, d/2, b1 < x < L-b1, D/2, L-b1 <= x < L, d/2);
-        Smax = @(xt) N(xt) / Aaxel(z(xt)) + Mtot(xt) / Wb(z(xt));       %Nominell maxspänningen i axeln
+    z(x) = piecewise(0 < x <= b1, d/2, b1 < x < L-b1, D/2, L-b1 <= x < L, d/2);
+
+    KN(x) = piecewise(x*2 == d, KN1, x*2 == D, KN2);
+    KM(x) = piecewise(x*2 == d, KM1, x*2 == D, KM2);
+    KMx(x) = piecewise(x*2 == d, KMx1, x*2 == D, KMx2);
+    
+    SmaxN = @(x) KN(z(x))*N(x);
+    SmaxM = @(x) KM(z(x))*Mtot(x);
+    SmaxMx = @(x) KMx(z(x))*Mx(x);
+    
+    Smaxx = @(x) SmaxN(x)/Aaxel(z(x)) + SmaxM(x)/ Wb(z(x));
+    Tmaxx = @(x) SmaxMx(x) / Wv(z(x));
+    VMx = @(x) sqrt(Smaxx(x)^2 + 3*Tmaxx(x)^2);
+    
         if i == 1
-            if Smax(b1) < redHaigh(Sup)/nu && Smax(L-b1) < redHaigh(Sup)/nu
+            if VMx(b1) < redHaigh(Sup)/nu && VMx(L-b1) < redHaigh(Sup)/nu
                 break
             end
         else
-            if Smax(L/2-bb) < redHaigh(Sup)/nu && Smax(L/2+bd) < redHaigh(Sup)/nu
+            if VMx(L/2-bb) < redHaigh(Sup)/nu && VMx(L/2+bd) < redHaigh(Sup)/nu
                 break
             end
         end
