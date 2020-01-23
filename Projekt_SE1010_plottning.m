@@ -27,48 +27,48 @@ close all
 figure('Name',['Moment XZ-planet runt Y - Lastfall ' lastfall]);
 fplot(My,[0 L]);
 %legend("Moment XZ-planet runt Y")
-xlabel('Position längs X-axeln [m]')
-ylabel('Moment [Nm]')
+xlabel('X-koordinat längs med bakaxeln [m]')
+ylabel('Moment XZ-planet [Nm]')
 title(['Moment XZ-planet runt Y - Lastfall ' lastfall])
 grid on
 
 figure('Name',['Moment XY-planet runt Z - Lastfall ' lastfall]);
 fplot(Mz,[0 L]);
 %legend("Moment XY-planet runt Z")
-xlabel('Position längs X-axeln [m]')
-ylabel('Moment [Nm]')
+xlabel('X-koordinat längs med bakaxeln [m]')
+ylabel('Moment XY-planet [Nm]')
 title(['Moment XY-planet runt Z - Lastfall ' lastfall])
 grid on
 
 figure('Name',['Moment YZ-planet runt X - Lastfall ' lastfall]);
 fplot(Mx,[0 L]);
 %legend("Moment YZ-planet runt X")
-xlabel('Position längs X-axeln [m]')
-ylabel('Moment [Nm]')
+xlabel('X-koordinat längs med bakaxeln [m]')
+ylabel('Moment YZ-planet [Nm]')
 title(['Moment YZ-planet runt X - Lastfall ' lastfall])
 grid on
 
 figure('Name',['Tvärspänning Z-axeln - Lastfall ' lastfall]);
 fplot(Tz,[0 L]);
 %legend("Tvärspänning Z-axeln")
-xlabel('Position längs X-axeln [m]')
-ylabel('Tryck [Pa]')
+xlabel('X-koordinat längs med bakaxeln [m]')
+ylabel('Tvärspänning Z-axeln [Pa]')
 title(['Tvärspänning Z-axeln - Lastfall ' lastfall])
 grid on
 
 figure('Name',['Tvärspänning Y-axeln - Lastfall ' lastfall]);
 fplot(Ty,[0 L]);
 %legend("Tvärspänning Y-axeln")
-xlabel('Position längs X-axeln [m]')
-ylabel('Tryck [Pa]')
+xlabel('X-koordinat längs med bakaxeln [m]')
+ylabel('Tvärspänning Y-axeln [Pa]')
 title(['Tvärspänning Y-axeln - Lastfall ' lastfall])
 grid on
 
 figure('Name',['Normalkraft mot YZ-planet - Lastfall ' lastfall]);
 fplot(N,[0 L]);
 %legend("Normalkraft mot YZ-planet")
-xlabel('Position längs X-axeln [m]')
-ylabel('Kraft [N]')
+xlabel('X-koordinat längs med bakaxeln [m]')
+ylabel('Normalkraft [Pa]')
 title(['Normalkraft mot YZ-planet - Lastfall ' lastfall])
 grid on
 
@@ -90,7 +90,35 @@ hold off
 
 %fplot(VM,[0 L]);
 legend(['D = ' num2str(D) ' m'], 'Sträckgräns med säkerhetsfaktor för material', 'Lokala spänningskoncentrationer','Location','southoutside')
-xlabel('Position längs X-axeln [m]')
-ylabel('Moment [Nm] / Kraft [N]')
-title(['Von Mises - Lastfall ' lastfall])
+xlabel('X-koordinat längs med bakaxeln [m]')
+ylabel('Spänning [Pa]')
+title(['Von Mises Effektivspänning - Lastfall ' lastfall])
 grid on
+
+
+figure('Name',['Böjskjuvspänning - Lastfall ' lastfall]);
+fplot(Tbmax,[0 L]);
+%legend("Böjskjuvspänning")
+xlabel('X-koordinat längs med bakaxeln [m]')
+ylabel('Böjskjuvspänning [Pa]')
+title(['Böjskjuvspänning - Lastfall ' lastfall])
+grid on
+
+figure('Name',['Vridskjuvspänning - Lastfall ' lastfall]);
+fplot(Tmax,[0 L]);
+%legend("Böjskjuvspänning")
+xlabel('X-koordinat längs med bakaxeln [m]')
+ylabel('Vridskjuvspänning [Pa]')
+title(['Vridskjuvspänning - Lastfall ' lastfall])
+grid on
+
+figure('Name',['Skjuvspänningar - Lastfall ' lastfall]);
+hold on
+fplot(Tmax,[0 L]);
+fplot(Tbmax,[0 L]);
+legend("Vridskjuvspänning", "Böjskjuvspänning")
+xlabel('X-koordinat längs med bakaxeln [m]')
+ylabel('Spänning [Pa]')
+title(['Skjuvspänningar - Lastfall ' lastfall])
+grid on
+hold off

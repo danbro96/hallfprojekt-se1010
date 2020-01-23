@@ -103,6 +103,9 @@ Smax = @(xt) N(xt) / Aaxel(z(xt)) + Mtot(xt) / Wb(z(xt));       %Nominell maxspä
 Tmax = @(xt) Mx(xt) / Wv(z(xt));                                %Nominell max skjuvspänning
 VM = @(xt) sqrt(Smax(xt)^2 + 3*Tmax(xt)^2);
 
+Ttot = @(xt) sqrt(Ty(xt)^2 + Tz(xt)^2);                         %Nominellt sammansatt skjvspänning
+Tbmax = @(xt) 4*Ttot(xt)/(3*pi^2);                              %Böjskjuvspänning
+
 %% ------------LOKALA SPÄNNINGSKONCENTRATIONER------------
 %OBS! Beräknas efter D i variabellistan
 
