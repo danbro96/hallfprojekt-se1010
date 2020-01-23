@@ -24,7 +24,7 @@ Grupp 15
 %}
 
 
-%% 1a   -   Körning rakt fram med konstant fart, v
+%% Lastfall A   -   Körning rakt fram med konstant fart, v
 clear all, close all, clc
 
 %Givna variabler
@@ -44,7 +44,7 @@ Projekt_SE1010_plottning
 Projekt_SE1010_lokspann
 Projekt_SE1010_utmattning
 
-%% 1b   -   Konstant acceleration, a1, påbörjad låg fart, v0
+%% Lastfall B   -   Konstant acceleration, a1, påbörjad låg fart, v0
 clear all, close all, clc
 
 %Givna variabler
@@ -64,7 +64,7 @@ Projekt_SE1010_plottning
 Projekt_SE1010_lokspann
 Projekt_SE1010_utmattning
 
-%% 1c   -   Bromsning från maxfart med konstant retardation, a2
+%% Lastfall C   -   Bromsning från maxfart med konstant retardation, a2
 clear all, close all, clc
 
 %Givna vriabler
@@ -84,7 +84,7 @@ Projekt_SE1010_lokspann
 Projekt_SE1010_utmattning
 
 
-%% 1d   -   Körning med konstant fart, 0.5*v, i kurva med radie R
+%% Lastfall D   -   Körning med konstant fart, 0.5*v, i kurva med radie R
 clear all, close all, clc
 
 %Givna variabler
@@ -110,7 +110,7 @@ Projekt_SE1010_utmattning
 
 
 
-%% 1b   -   Konstant acceleration, a1, påbörjad låg fart, v0
+%% Lastfall B, DREVKALKYLERING   -   Konstant acceleration, a1, påbörjad låg fart, v0
 %Skapar graf för positionsbestämning av drev.
 
 clear all, close all, clc
@@ -144,8 +144,9 @@ grid on
 hold on
 end
 
-%% 1c   -   Bromsning från maxfart med konstant retardation, a2
+%% Lastfall C, BROMSKALKYLERING   -   Bromsning från maxfart med konstant retardation, a2
 %Skapar graf för positionsbestämning av bromsskiva.
+
 clear all, close all, clc
 VMt = [];
 for i = 0.2:0.05:0.4
