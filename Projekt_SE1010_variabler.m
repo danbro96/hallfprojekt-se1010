@@ -38,12 +38,12 @@ Grupp 15
     h1  = 0.3;              %m          Avstånd mellan tyngdpunkt och luftmotståndets verkningslinje
     L   = 1.1;              %m          Bakaxellängd
     b1  = 0.15;             %m          Hjullagerposition
-    bb  = 0.35;             %m          Bromsskivans position
+    bb  = 0.3;             %m          Bromsskivans position
     dh  = 0.3;              %m          Hjuldiameter
     rh  = dh/2;             %m          Hjulradie
     rb  = 0.01*dh;          %m          Bromsbackarnas position
     rd  = 0.01*dh;          %m          Drevets radie
-    bd  = 0.3;              %m          Drevets position
+    bd  = 0.1;              %m          Drevets position
     p1  = 0.0045;           %m          Kälradie
     p2  = p1;               %m          Kälradie
     ns  = 3;                %           Säkerhetsfaktor mot plastisk deformation
