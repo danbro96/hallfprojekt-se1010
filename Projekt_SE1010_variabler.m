@@ -59,12 +59,12 @@ Grupp 15
     Sup = 180*10^6;         %Pa         180+-180MPa sigma up, betecknar utmattningsgränsen vid pulserande drag eller tryck
     Sub = 270*10^6;         %Pa         Utmattningsgränsen vid växlande böjning
     Subp = 240*10^6;        %Pa         240+-240MPa sigma ubp, betecknar utmattningsgränsen vid pulserande böjning
-    %Ss  = 310;             %Pa         sigma s >310 MPa Sträckgräns
+    Ss  = 310*10^6;         %Pa         sigma s >310 MPa Sträckgräns
     %KN = 1.65;             %           Spänningskoncentrationsfaktorn, drag figur 159b GH s.252
     %KM = 1.45;             %           Spänningskoncentrationsfaktorn, böj figur 159c GH s.252
     
     
-    Ss = 325*10^6;          %Pa         Sträckgräns stål SS-1650-01
+    %Ss = 325*10^6;          %Pa         Sträckgräns stål SS-1650-01
     
     D = 0.048;               %m          Axelns diameter
     d = 0.6*D;
