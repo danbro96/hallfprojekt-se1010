@@ -38,12 +38,12 @@ Grupp 15
     h1  = 0.3;              %m          Avstånd mellan tyngdpunkt och luftmotståndets verkningslinje
     L   = 1.1;              %m          Bakaxellängd
     b1  = 0.15;             %m          Hjullagerposition
-    bb  = 0.3;             %m          Bromsskivans position
+    bb  = 0.35;             %m          Bromsskivans position
     dh  = 0.3;              %m          Hjuldiameter
     rh  = dh/2;             %m          Hjulradie
-    rb  = 0.01*dh;          %m          Bromsbackarnas position
-    rd  = 0.01*dh;          %m          Drevets radie
-    bd  = 0.1;              %m          Drevets position
+    rb  = 0.1*dh;           %m          Bromsbackarnas position
+    rd  = 0.1*dh;           %m          Drevets radie
+    bd  = 0.3;              %m          Drevets position
     p1  = 0.0045;           %m          Kälradie
     p2  = p1;               %m          Kälradie
     ns  = 3;                %           Säkerhetsfaktor mot plastisk deformation
@@ -66,7 +66,7 @@ Grupp 15
     
     %Ss = 325*10^6;          %Pa         Sträckgräns stål SS-1650-01
     
-    D = 0.048;               %m          Axelns diameter
+    D = 0.049;               %m          Axelns diameter
     d = 0.6*D;
     
     %D/d=1.666, p1/d=0.163 =>
