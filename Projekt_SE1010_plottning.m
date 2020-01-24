@@ -89,9 +89,9 @@ plot(L-b1, VMx(L-b1),'r*')
 hold off
 
 %fplot(VM,[0 L]);
-legend(['D = ' num2str(D) ' m'], 'Sträckgräns med säkerhetsfaktor för material', 'Lokala spänningskoncentrationer','Location','southoutside')
+legend(['D = ' num2str(D) ' m'], 'Sträckgräns med säkerhetsfaktor för material', 'Lokala spänningskoncentrationer')
 xlabel('X-koordinat längs med bakaxeln [m]')
-ylabel('Spänning [Pa]')
+ylabel('Effektivspänning [Pa]')
 title(['Von Mises Effektivspänning - Lastfall ' lastfall])
 grid on
 
